@@ -25,6 +25,25 @@ dependencies {
 	compile 'org.jetbrains:annotations:13.0'
 }
 
+task genJavadoc(type: Jar, dependsOn: javadoc) {
+	classifier = 'javadoc'
+	from javadoc.destinationDir
+}
+
+task deleteDocs(type: Delete){
+	delete 'docs'
+	followSymlinks = false
+}
+
+task copyDocs(type: Copy, dependsOn: [genJavadoc, deleteDocs]){
+	from 'build/docs/javadoc'
+	into 'docs'
+}
+
+artifacts {
+	archives genJavadoc
+}
+
 compileJava {
 	options.compilerArgs << '-parameters'
 }
