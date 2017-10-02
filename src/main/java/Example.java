@@ -1,4 +1,5 @@
-import com.fasterxml.jackson.annotation.*;
+import com.fasterxml.jackson.annotation.JsonCreator;
+import com.fasterxml.jackson.annotation.JsonProperty;
 import com.fasterxml.jackson.dataformat.yaml.YAMLMapper;
 import com.fasterxml.jackson.module.paramnames.ParameterNamesModule;
 import org.jetbrains.annotations.NotNull;
@@ -11,17 +12,35 @@ import java.util.List;
 import java.util.Map;
 
 /**
- * Created by NoahGleason on 7/16/17.
+ * A base class that calls the Jackson code to construct itself and in the process several students.
  */
 public class Example {
 
+	/**
+	 * The best student in the class. Should also be in students.
+	 */
 	@NotNull
-	private Student valedictorian;
-	@NotNull
-	private List<Student> students;
-	@NotNull
-	private String classname;
+	private final Student valedictorian;
 
+	/**
+	 * A list of all the students, including the valedictorian.
+	 */
+	@NotNull
+	private final List<Student> students;
+
+	/**
+	 * The name of the class.
+	 */
+	@NotNull
+	private final String classname;
+
+	/**
+	 * Default constructor
+	 *
+	 * @param valedictorian The best student in the class. Should also be in students.
+	 * @param students      A list of all the students, including the valedictorian.
+	 * @param classname     The name of the class.
+	 */
 	@JsonCreator
 	public Example(@NotNull @JsonProperty(required = true) Student valedictorian,
 	               @NotNull @JsonProperty(required = true) List<Student> students,
@@ -31,6 +50,12 @@ public class Example {
 		this.classname = classname;
 	}
 
+	/**
+	 * Reads the Yaml file and uses it to construct an {@link Example}.
+	 *
+	 * @param args Command line arguments, not used.
+	 * @throws IOException If example.yml doesn't exist or isn't a proper YAML file.
+	 */
 	public static void main(String[] args) throws IOException {
 		Yaml yaml = new Yaml();
 		Map<?, ?> normalized = (Map<?, ?>) yaml.load(new FileReader("example.yml"));
@@ -41,9 +66,9 @@ public class Example {
 		mapper.registerModule(new ParameterNamesModule(JsonCreator.Mode.PROPERTIES));
 		//Deserialize the map into an object.
 		Example output = mapper.readValue(fixed, Example.class);
-		System.out.println("Class name: "+output.classname);
-		System.out.println("Valedictorian: "+output.valedictorian);
-		System.out.println("Students: "+output.students);
-		System.out.println("Valedictorian is first student in Students: "+(output.valedictorian == output.students.get(0)));
+		System.out.println("Class name: " + output.classname);
+		System.out.println("Valedictorian: " + output.valedictorian);
+		System.out.println("Students: " + output.students);
+		System.out.println("Valedictorian is first student in Students: " + (output.valedictorian == output.students.get(0)));
 	}
 }
