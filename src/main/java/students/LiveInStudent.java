@@ -32,7 +32,7 @@ public class LiveInStudent extends Student {
 	 * @param hasMealPlan Whether or not this student has a meal plan. Defaults to false.
 	 */
 	@JsonCreator
-	public LiveInStudent(@JsonProperty(required = true) int grade,
+	public LiveInStudent( int grade,
 	                     @NotNull @JsonProperty(required = true) String name,
 	                     Double gpa,
 	                     @JsonProperty(required = true) int buildingNum,

@@ -5,10 +5,11 @@ students:
         '@id': suzan
         grade: 12
         name: "suzan"
+        gpa: 4.0
     - students.LiveInStudent:
         &building5Student
         '@id': billy
-        grade: 10
+
         name: "billy"
         gpa: 3.67
         buildingNum: 5
