@@ -35,8 +35,7 @@ public class Student {
 	 */
 	@JsonCreator
 	public Student(@JsonProperty(required = true) int grade,
-	               @NotNull @JsonProperty(required = true) String name,
-	               @NotNull @JsonProperty(required = true) Double gpa) {
+	               @NotNull @JsonProperty(required = true) String name, Double gpa) {
 		this.grade = grade;
 		this.name = name;
 		this.gpa = gpa != null ? gpa : 4.0;
