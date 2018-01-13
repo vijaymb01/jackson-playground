@@ -2,6 +2,10 @@
 classname: "blah"
 students:
     - students.Student:
+        '@id': george
+        grade: 11
+        name: "george"
+    - students.Student:
         '@id': suzan
         grade: 12
         name: "suzan"
